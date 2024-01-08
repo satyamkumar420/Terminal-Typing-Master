@@ -1,7 +1,7 @@
 # Terminal Typing Master
 
 ## Description
-**Terminal Typing Master** is a command-line typing test game that allows users to test their typing speed and accuracy. The game includes different categories for typing exercises, a leaderboard to track user performance, and a simple interface for an engaging user experience.
+**Terminal Typing Master** is a command-line typing test game that allows users to test their typing speed and accuracy. The game includes different categories for typing exercises, a leaderboard to track user performance and a simple interface for an engaging user experience.
 
 ## Features
 - **Typing Test:** Choose a category and type the displayed paragraph to test your typing skills.
@@ -12,7 +12,7 @@
 1. Clone the repository to your local machine.
     ```bash
     git clone https://github.com/satyamkumar420/Terminal-Typing-Master
-    cd terminal-typing-master
+    cd Terminal-Typing-Master
     ```
 
 2. Run the program.
