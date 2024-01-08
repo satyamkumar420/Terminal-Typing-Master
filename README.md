@@ -33,4 +33,6 @@
 - Python 3.x
 
 ## Screenshots
-![image](https://github.com/satyamkumar420/Terminal-Typing-Master/assets/98641231/33ca2174-1bc2-4733-8eea-e5bebe3eb73d)
+![image](https://github.com/satyamkumar420/Terminal-Typing-Master/assets/98641231/d43cbc83-fdd3-4cba-8eaf-3fa5349835cb)
+
+
