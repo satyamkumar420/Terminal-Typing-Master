@@ -75,6 +75,7 @@ def get_user_input():
 def display_category_data(category):
     print(f"{PURPLE}{words_dict[category]['paragraph']}{END_COLOR}")
 
+# Main function 
 def main():
     try:
         print("<=== 🥷 Welcome to Typing Test 🥷 ===>")
