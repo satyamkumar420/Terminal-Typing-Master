@@ -1,5 +1,7 @@
 import time
 import json
+import signal
+import sys
 
 # ANSI escape codes for text color
 RED = "\033[91m"
@@ -9,6 +11,17 @@ YELLOW = "\033[93m"
 BLUE = "\033[94m"
 PURPLE = "\033[95m"
 END_COLOR = "\033[0m"
+
+# Emojis
+WAVE = "👋"
+NINJA = "🥷"
+KEYBOARD = "⌨️"
+TROPHY = "🏆"
+EXIT_SIGN = "🚪"
+STOPWATCH = "⏱️"
+WORDS = "📝"
+SPEEDOMETER = "🚀"
+ERROR = "❌"
 
 # Load words from JSON file into dict
 def load_words_from_json(filename):
@@ -30,9 +43,9 @@ def update_leaderboard(username, words_typed, time_taken, wpm):
         leaderboard = {}
 
     leaderboard[username] = {
-        f"Words Typed " : words_typed,
-        "Time Taken": f"{time_taken:.2f} seconds",
-        "Words Per Minute": f"{wpm} WPM "
+        f"Words Typed": words_typed,
+        f"Time Taken": f"{time_taken:.2f} seconds",
+        f"Words Per Minute": f"{wpm} WPM "
     }
 
     with open(leaderboard_file, 'w') as f:
@@ -48,7 +61,7 @@ def show_leaderboard():
     except (FileNotFoundError, json.JSONDecodeError):
         leaderboard = {}
     
-    print("== Leaderboard ==")
+    print(f"{TROPHY} {CYAN}== Leaderboard =={END_COLOR} {TROPHY}")
     
     if not leaderboard:
         print("Leaderboard is empty.")
@@ -58,27 +71,28 @@ def show_leaderboard():
 
 # Get user input    
 def get_user_input():
-  try:
-    username = input(f"{YELLOW}Enter your Username: {END_COLOR} ").capitalize()
-    print(f"<======== Welcome {username} =========>")
-    print("1. Start Typing Test")
-    print("2. Show Leaderboard")
-    print("3. Quit")
-    
-    choice = input(f"{CYAN}Choice: {END_COLOR}")
-    return username, choice
-  except Exception as e: 
-        print(f"{RED}Something went wrong{END_COLOR}")
-  except KeyboardInterrupt:
-        print("Exiting...")
+    try:
+        username = input(f"{WAVE} {YELLOW}Enter your Username: {END_COLOR} ").capitalize()
+        print(f"{NINJA} <======== Welcome {username} ========> {NINJA}")
+        print(f"1. {KEYBOARD} Start Typing Test")
+        print(f"2. {TROPHY} Show Leaderboard")
+        print(f"3. {EXIT_SIGN} Quit")
         
+        choice = input(f"{CYAN}Choice: {END_COLOR}")
+        return username, choice
+    except KeyboardInterrupt:
+        print(f"{RED}Exiting...{END_COLOR}")
+        sys.exit(0)
+    except Exception as e:
+        print(f"{RED}Something went wrong: {e}{END_COLOR}")
+
 def display_category_data(category):
     print(f"{PURPLE}{words_dict[category]['paragraph']}{END_COLOR}")
 
 # Main function 
 def main():
     try:
-        print("<=== 🥷 Welcome to Typing Test 🥷 ===>")
+        print(f"{NINJA} <=== Welcome to Typing Test {NINJA} ===>")
         username, choice = get_user_input()
         print(f"Selected choice: {choice}")
         
@@ -113,17 +127,17 @@ def main():
                 errors = sum(c1 != c2 for c1, c2 in zip(user_input, words_dict[selected_category]['paragraph']))
 
                 print(f"{CYAN}\n{username.capitalize()} Your Stats: {END_COLOR}")
-                print(f"Words Typed: {words_typed}\nTime Taken: {time_taken:.2f} seconds\nWords Per Minute: {wpm} WPM")
-                print(f"Errors: {errors}")
+                print(f"{WORDS} Words Typed: {words_typed}\n{STOPWATCH} Time Taken: {time_taken:.2f} seconds\n{SPEEDOMETER} Words Per Minute: {wpm} WPM")
+                print(f"{ERROR} Errors: {errors}")
 
                 update_leaderboard(username, words_typed, time_taken, wpm)
 
                 # Ask if the user wants to exit or continue
                 exit_choice = input("\nDo you want to exit? (y/n): ").lower()
                 if exit_choice == 'y':
-                    print("Goodbye!")
-                    print("Exiting...")
-                    exit()
+                    print(f"{WAVE} Goodbye! {WAVE}")
+                    print(f"{EXIT_SIGN} {RED}Exiting...{END_COLOR}")
+                    sys.exit(0)
             else:
                 print(f"{RED}Invalid category: {selected_category}. Please choose a valid category.{END_COLOR}")
 
@@ -131,16 +145,21 @@ def main():
             show_leaderboard()
 
         elif choice == '3':
-            print("Goodbye!")
-            print(f"{RED}Exiting...{END_COLOR}")
-            exit()
+            print(f"{WAVE} Goodbye! {WAVE}")
+            print(f"{EXIT_SIGN} {RED}Exiting...{END_COLOR}")
+            sys.exit(0)
         else:
-            print("Invalid choice. Please try again.")
+            print(f"{RED}Invalid choice. Please try again.{END_COLOR}")
     except Exception as e:
         print(f"{RED}An error occurred: {e}{END_COLOR}")
-    except KeyboardInterrupt:
-        print("Exiting...")
-        exit()
+
+# Set up signal handler for Ctrl + Q
+def signal_handler(sig, frame):
+    print(f"{RED}Ctrl + C pressed. Exiting...{END_COLOR}")
+    sys.exit(0)
+
+# Register the signal handler
+signal.signal(signal.SIGINT, signal_handler)
 
 while True:
     main()
