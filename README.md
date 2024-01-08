@@ -18,7 +18,7 @@
 2. Run the program.
     ```bash
 
-    python typing_master.py
+    python Terminal_Typing_Master.py
     
     ```
 
