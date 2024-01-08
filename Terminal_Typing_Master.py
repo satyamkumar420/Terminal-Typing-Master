@@ -132,7 +132,7 @@ def main():
 
         elif choice == '3':
             print("Goodbye!")
-            print("Exiting...")
+            print(f"{RED}Exiting...{END_COLOR}")
             exit()
         else:
             print("Invalid choice. Please try again.")

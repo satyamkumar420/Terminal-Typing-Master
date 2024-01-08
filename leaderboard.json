@@ -3,5 +3,10 @@
         "Words Typed ": 6,
         "Time Taken": "12.85 seconds",
         "Words Per Minute": "28 WPM "
+    },
+    "Dev": {
+        "Words Typed ": 5,
+        "Time Taken": "10.00 seconds",
+        "Words Per Minute": "30 WPM "
     }
 }
