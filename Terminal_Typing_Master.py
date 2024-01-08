@@ -38,7 +38,7 @@ def update_leaderboard(username, words_typed, time_taken, wpm):
     with open(leaderboard_file, 'w') as f:
         json.dump(leaderboard, f, indent=4)  
 
-# Display leaderboard
+# <--- Display leaderboard --->
 def show_leaderboard():
     leaderboard_file = 'leaderboard.json'
     
